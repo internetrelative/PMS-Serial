@@ -1,6 +1,9 @@
 #include <Arduino.h>
 #include <SoftwareSerial.h>
 
+// (FOR Arduino Uno R4) Note any pin can be used for TX, but only the following pins can be used for RX:
+// D0, D1, D2, D3, D8, D14, D15, A1, A2, A3, A4, A5
+
 SoftwareSerial pmsSerial(13, 12);  // RX , TX
 
 byte dataArray[32];
@@ -79,11 +82,18 @@ void loop() {
           Serial.print("PM10 ");
           Serial.print((int)fullByte);
           Serial.println("ug/m3\n");
+          delay(1000);
         } else {
           Serial.println("Checksum Error\n");
+          delay(1000);
         }
         dataIndex = 0;
       }
     }
+  }
+  else
+  {
+    Serial.println("pmsSerial not available");
+    delay(1000);
   }
 }
