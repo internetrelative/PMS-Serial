@@ -4,21 +4,21 @@
 // (FOR Arduino Uno R4) Note any pin can be used for TX, but only the following pins can be used for RX:
 // D0, D1, D2, D3, D8, D14, D15, A1, A2, A3, A4, A5
 
-SoftwareSerial pmsSerial(13, 12);  // RX , TX
+SoftwareSerial pmSerial(13, 12);  // RX , TX
 
 byte dataArray[32];
 int dataIndex = 0;
 
 void setup() {
   Serial.begin(115200);
-  pmsSerial.begin(9600);
+  pmSerial.begin(9600);
   delay(2000);  
   Serial.println("Started!");
 }
 
 void loop() {
-  if (pmsSerial.available()) {
-    byte incomingByte = pmsSerial.read();
+  if (pmSerial.available()) {
+    byte incomingByte = pmSerial.read();
 
     if (dataIndex == 0) {
       if (incomingByte == 0x42) {  // First byte is usually 0x42 but it's 0x43 on PM2008M
@@ -93,7 +93,7 @@ void loop() {
   }
   else
   {
-    Serial.println("pmsSerial not available");
+    Serial.println("pmSerial not available");
     delay(1000);
   }
 }
